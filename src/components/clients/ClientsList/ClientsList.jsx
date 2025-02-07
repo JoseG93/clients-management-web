@@ -48,10 +48,6 @@ export default function ClientsList() {
   }
 
   async function handleDeleteClient() {
-
-
-
-
     if (deleteClientId) {
       const result = await deleteClient(deleteClientId);
       console.log('* result *', result);

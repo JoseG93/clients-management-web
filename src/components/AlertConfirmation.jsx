@@ -12,9 +12,7 @@ const AlertConfirmation = ({ ref, message, onConfirm, onCancel }) => {
   });
 
   function handleOnClose() {
-
   }
-
 
   return createPortal(
     <dialog ref={dialog} onClose={handleOnClose}>

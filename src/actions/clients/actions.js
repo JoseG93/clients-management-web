@@ -16,6 +16,17 @@ export async function getClients() {
   return clients;
 }
 
+export async function getClientById(clientId) {
+  let { data, error } = await supabase.from("clients").select().match({ id: clientId });
+
+  if (error) {
+    throw new Error("* ERROR - failed to fetch client *");
+  }
+  
+  let client = data[0];
+  return client;
+}
+
 export async function addClient(data) {
   const { error } = await supabase
     .from("clients")
@@ -34,12 +45,11 @@ export async function addClient(data) {
 }
 
 export async function updateClient() {
-  // implement later
+  // TODO - implement later
 }
 
 export async function deleteClient(clientId) {
   const { data, error } = await supabase.from("clients").delete().eq("id", clientId);
-  console.log('* delete-client data *', data);
 
   if (error) {
     throw new Error(error.message);

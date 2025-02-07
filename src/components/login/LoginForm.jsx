@@ -32,7 +32,7 @@ export default function LoginForm({ title }) {
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
     
-    /* implement */
+    /* TODO - implement */
     // send form to auth service
     // process login
     // redirect user if success

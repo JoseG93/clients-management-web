@@ -1,38 +1,69 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { clients } from "@/utils/data";
+import { useParams, useRouter } from "next/navigation";
+
+import { getClientById } from "@/actions/clients/actions";
+import { getShipsByClient, deleteShip } from "@/actions/ships/actions";
+
+import { formatDate } from "@/utils/utils";
 
 import ShipCard from "@/components/ships/ShipCard/ShipCard";
 
 export default function ClientDetails() {
   const params = useParams();
-  const [client, setClient] = useState(null);
+  const router = useRouter();
+
+  const [client, setClient] = useState([]);
+  const [clientShips, setClientShips] = useState([]);
 
   useEffect(() => {
-    const client = clients.find((client) => client.id == params.id);
-    console.log("* client *", client);
-    setClient(() => client);
+    fetchClient(params.id);
+    fetchClientShips(params.id);
   }, [params.id]);
+
+  async function fetchClient(clientId) {
+    const clientData = await getClientById(clientId);
+    setClient(clientData);
+  }
+
+  async function fetchClientShips(clientId) {
+    const shipsData = await getShipsByClient(clientId);
+    setClientShips(shipsData);
+  }
+
+  async function handleShipViewDetailsClick(shipId) {
+    router.push(`/ships/${shipId}`);
+  }
+
+  async function handleShipDeleteClick(shipId) {
+    const result = await deleteShip(shipId);
+    fetchClientShips(params.id);
+  }
 
   return (
     <section className="p-2">
       {client && (
-        <div className="p-4 flex flex-col gap-2 rounded-md bg-gray-800">
+        <div className="p-4 flex flex-col gap-2 rounded-md bg-gray-600">
           <h2 className="mb-2 font-bold text-3xl text-white">{client.name}</h2>
           <span className="mb-2  text-white">
-            Registrado - {client.createdAt}
+            Registrado - {formatDate(client.created_at)}
           </span>
-          <span className="mb-2 text-white">Cantidad de servicios - 3</span>
           <span className="mb-2 text-white">{client.description}</span>
         </div>
       )}
-      {client && client.ships.length > 0 && (
-        <div className="mt-4">
+      {clientShips.length > 0 && (
+        <div className="mt-4 p-4 rounded-md bg-gray-600">
           <h3 className="mb-2 font-bold text-2xl text-white">Embarcaciones</h3>
           <div className="flex flex-col">
-            {client.ships.map((ship) => (
-              <ShipCard key={ship.id} clientId={client.id} ship={ship} />
+            {clientShips.map((ship) => (
+              <ShipCard
+                key={ship.id}
+                clientId={client.id}
+                ship={ship}
+                onShipViewDetails={() => handleShipViewDetailsClick(ship.id)}
+                onShipDelete={() => handleShipDeleteClick(ship.id)}
+              />
             ))}
           </div>
         </div>

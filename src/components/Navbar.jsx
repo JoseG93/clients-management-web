@@ -6,7 +6,6 @@ import companyLogo from "../../public/rm-logo.png";
 export default function Navbar() {
   return (
     <nav className="flex flex-no-wrap items-center justify-between px-2 bg-slate-800">
-      {/* <nav className="sticky top-0 bg-slate-800"> */}
       <div className="container px-4 mx-auto flex justify-between items-center align-middle py-3">
         <div className="flex gap-3 items-center">
           <Image

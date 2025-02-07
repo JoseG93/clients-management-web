@@ -13,7 +13,6 @@ export default function AddClientForm({ title }) {
   const router = useRouter();
 
   function handleGoBack(event) {
-    // event.preventDefault();
     router.back();
   }
 
@@ -43,8 +42,6 @@ export default function AddClientForm({ title }) {
     const data = Object.fromEntries(fd.entries());
 
     console.log('* add-client form-data *', data);
-
-    // const { result } = await addClient(data);
 
     addClient(data)
       .then(() => {

@@ -1,7 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
-// components
 import Navbar from "../components/Navbar";
 
 const geistSans = localFont({
@@ -27,7 +26,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-gray-600 flex flex-col h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-gray-500 flex flex-col h-screen`}
       >
         <Navbar />
         <main className="snap-y snap-mandatory overflow-y-scroll grow">

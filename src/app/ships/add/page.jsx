@@ -1,7 +1,7 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 
-// components
 import AddShipForm from "@/components/ships/AddShipForm/AddShipForm";
 
 export default function AddShip() {
